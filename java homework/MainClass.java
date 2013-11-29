@@ -187,70 +187,27 @@ public void createTitle(String title)
 		@Override
 		public void actionPerformed(ActionEvent event)
 		{
-			/*if( event.getSource() == tempButton )
+			if( event.getSource() == tempButton )
 			{	
 				if(score < 2 )
 					tempLabel.setText("Your score is: " + score + ". You failed, bitch!");
 				else
 					tempLabel.setText("Your score is: " + score + ". You passed, bitch!");
 			}
-			event.getSource();*/
 			
-
-/*				if (event.getSource() == mybutton && mylabel.getText() != "My button was clicked")
-//>>>>>>> Button action
+			if( event.getSource() == nextButton )
 			{
-				mylabel.setText("My button was clicked");
-				mybutton.setText("Ok");
-				//changePanel.setVisible(false);\
-				Iterator < JPanel >    panelIT =  panelList.iterator();
-		        
-		        while ( panelIT.hasNext() )
-		        {
-		        	JPanel currPanel = panelIT.next();
-		        	
-		        	if ( currPanel.getName() == "red panel" )
-		        	{
-		        		
-		        		currPanel.setVisible ( false );
-		        		
-		        	}
-		        }
-				return;
+				panelList.get(currentPanelID % 3).setVisible(false);
+				panelList.get(++currentPanelID % 3).setVisible(true);
 			}
-		
-			if (event.getSource() == mybutton && mylabel.getText() == "My button was clicked")
+				
+			if( event.getSource() == prevButton )
 			{
-				mylabel.setText("");
-				mybutton.setText("Not Ok");
-				Iterator < JPanel >    panelIT =  panelList.iterator();
-		        
-		        while ( panelIT.hasNext() )
-		        {
-		        	JPanel currPanel = panelIT.next();
-		        	
-		        	if ( currPanel.getName() == "red panel" )
-		        	{
-		        		
-		        		currPanel.setVisible ( true );
-		        		
-		        	}
-		        }
-				return;
+				if( currentPanelID < 3)
+					currentPanelID += 3;
+				panelList.get(currentPanelID % 3).setVisible(false);
+				panelList.get(--currentPanelID % 3).setVisible(true);
 			}
-		
-			if (event.getSource() == radio1)
-			{
-				mylabel.setText("My radio1button was clicked");
-				return;
-			}
-		
-			if (event.getSource() == radio2)
-			{
-				mylabel.setText("My radio2button was clicked");
-				return;
-			}
-*/
 			
 		}
 
