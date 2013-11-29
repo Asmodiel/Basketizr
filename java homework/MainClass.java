@@ -1,15 +1,16 @@
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -23,7 +24,14 @@ public class MainClass extends JApplet implements ActionListener
 	JPanel mainPanel;
 	JPanel contentPanel;
 	JPanel bottomPanel;
+	
+	JButton nextButton;
+	JButton prevButton;
+	JButton submitButton;
+	
 	List<JPanel>  panelList  = new ArrayList  <JPanel>  ();
+	
+	int currentPanelID = 2;
 	
 	int score;
 	static final int PANELS = 3; 	 	
@@ -50,13 +58,18 @@ public void createTitle(String title)
 		mainPanel.add( titlePanel );
 	}
 	
-	public void createQuestionPanel(int in, String question, String id, String [] answers)
+	public void createQuestionPanel(int in, String question, int id, String [] answers)
 	{
 		JPanel tempPanel = new JPanel();
-		tempPanel.setName( id );
+		tempPanel.setBackground( Color.green );
+		tempPanel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
+		tempPanel.setName( "" + id );
 	
 		ImageIcon img = createImageIcon("/images/img1.jpg");
-		tempPanel.add(new JLabel(img));
+		JLabel tempLabel = new JLabel(img);
+		
+		tempLabel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
+		tempPanel.add( tempLabel );
 	
 		tempPanel.add( new JLabel(question) );
 		for(int i=0;i<answers.length;i++)
@@ -66,20 +79,20 @@ public void createTitle(String title)
 			tempPanel.add(temp);
 		}
 		
-		tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.Y_AXIS));
+		//tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.Y_AXIS));
 		panelList.add( tempPanel );
 	}
 	
-	public void createButton(String name)
+	public JButton createButton(String name)
 	{
-		tempPanel = new JPanel();
-		tempButton = new JButton(name);
 		
-		tempButton.addActionListener(this);
+		JButton button = new JButton(name);
 		
-		tempPanel.add( tempButton );
+		button.addActionListener(this);
 		
-		panelList.add( tempPanel );
+		bottomPanel.add( button );
+		
+		return button;
 	}
 	
 	
@@ -88,8 +101,9 @@ public void createTitle(String title)
 		Iterator < JPanel >    panelIT =  panelList.iterator();			
         while ( panelIT.hasNext() )
         {
-        	JPanel currPanel = panelIT.next();
-        	contentPanel.add ( currPanel );
+        	JPanel  currPanel = panelIT.next();
+	        		currPanel.setVisible(false);
+	        		contentPanel.add ( currPanel );
         }
 		
 		this.add( contentPanel );
@@ -122,7 +136,6 @@ public void createTitle(String title)
 		bottomPanel = new JPanel();
 		
 			bottomPanel.setPreferredSize( new Dimension( 500, 50 ) );
-			bottomPanel.add( new JLabel ("i'm on the bottom, you know?") );
 			bottomPanel.setBackground( Color.lightGray );
 			
 			tempLabel = new JLabel(" status ");
@@ -153,10 +166,13 @@ public void createTitle(String title)
 			{
 				correct[i] = i%3;
 				allgroups[i] = new ButtonGroup();
-				createQuestionPanel(i,questions[i],"q"+i,answers[i]);
-			}			
-			createButton("Submit");
+				createQuestionPanel(i,questions[i], i, answers[i]);
+			}		
+			nextButton = createButton("Next");
+			prevButton = createButton("Previous");
+			submitButton = createButton("Submit");
 			printPanels();
+			panelList.get(0).setVisible(true);
 			
 
 		
@@ -178,6 +194,7 @@ public void createTitle(String title)
 				else
 					tempLabel.setText("Your score is: " + score + ". You passed, bitch!");
 			}
+			event.getSource();
 			
 
 /*				if (event.getSource() == mybutton && mylabel.getText() != "My button was clicked")
