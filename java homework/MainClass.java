@@ -21,7 +21,6 @@ public class MainClass extends JApplet implements ActionListener
 	JPanel mainPanel;
 	JPanel contentPanel;
 	JPanel bottomPanel;
-	JPanel tempPanel;
 	List<JPanel>  panelList  = new ArrayList  <JPanel>  ();
 	
 	JButton mybutton;
@@ -46,7 +45,7 @@ public void createTitle(String title)
 	
 	public void createQuestionPanel(String question, String id, String answer1, String answer2, String answer3)
 	{
-		tempPanel = new JPanel();
+		JPanel tempPanel = new JPanel();
 		tempPanel.setName( id );
 		 ButtonGroup group = new ButtonGroup();
 		//tempPanel.setBackground( Color.orange );
@@ -71,7 +70,7 @@ public void createTitle(String title)
 	
 	public void createButton(String name)
 	{
-		tempPanel = new JPanel();
+		JPanel tempPanel = new JPanel();
 		tempPanel.add( new JButton(name) );
 		
 		panelList.add( tempPanel );
