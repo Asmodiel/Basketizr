@@ -50,16 +50,16 @@ public void createTitle(String title)
 	{
 		JPanel tempPanel = new JPanel();
 		tempPanel.setName( id );
-		ButtonGroup group = new ButtonGroup();
-		//tempPanel.setBackground( Color.orange );
+		tempPanel.setBackground( Color.WHITE );
 		
 		JRadioButton radio1 =  new JRadioButton( answer1 );
 		JRadioButton radio2 =  new JRadioButton( answer2 );
 		JRadioButton radio3 =  new JRadioButton( answer3 );
 		
-		group.add(radio1);
-		group.add(radio2);
-		group.add(radio3);
+		ButtonGroup group = new ButtonGroup();
+		group.add( radio1 );
+		group.add( radio2 );
+		group.add( radio3 );
 		
 		tempPanel.add( new JLabel(question) );
 		tempPanel.add( radio1 );
@@ -67,7 +67,7 @@ public void createTitle(String title)
 		tempPanel.add( radio3 );
 		
 		
-		tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.Y_AXIS));
+		tempPanel.setLayout( new BoxLayout( tempPanel, BoxLayout.Y_AXIS ) );
 		panelList.add( tempPanel );
 	}
 	
@@ -100,22 +100,22 @@ public void createTitle(String title)
 	public void init()
 	{
 		
-		this.setSize( 500, 700 );
+		this.setSize( 500, 600 );
 
 		// create main panel
-		mainPanel = new JPanel( new CardLayout() );
+		mainPanel = new JPanel( );
 		mainPanel.setSize( 500, 500 );
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));	// BOX LAYOUT
+		//mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));	// BOX LAYOUT
 		mainPanel.setBackground( Color.gray );		
 		
 		contentPanel = new JPanel();
 			contentPanel.setBackground( Color.WHITE );
-			contentPanel.setSize( 500, 400 );
+			contentPanel.setLayout( new BoxLayout( contentPanel, BoxLayout.Y_AXIS ) );
+			contentPanel.setPreferredSize( new Dimension( 500, 500 ) );
 		
 		bottomPanel = new JPanel();
 		
-			bottomPanel.setSize( 500, 100 );
-			bottomPanel.setLocation(0, 400);
+			bottomPanel.setPreferredSize( new Dimension( 500, 50 ) );
 			bottomPanel.add( new JLabel ("i'm on the bottom, you know?") );
 			bottomPanel.setBackground( Color.lightGray );
 			
