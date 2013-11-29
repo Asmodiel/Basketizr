@@ -24,7 +24,6 @@ public class MainClass extends JApplet implements ActionListener
 	
 	JButton mybutton;
 	JLabel mylabel;	
-	JLabel changeLabel;
 
 	
 	JRadioButton radio1;
@@ -35,25 +34,37 @@ public class MainClass extends JApplet implements ActionListener
 		
 		this.setSize( 500, 500 );
 		
+		JPanel topPanel = new JPanel();
+			topPanel.setBackground( Color.WHITE );
+			topPanel.setSize( 500, 400 );
+		
+		JPanel bottomPanel = new JPanel();
+		
+			bottomPanel.setSize( 500, 100 );
+			bottomPanel.setLocation(0, 400);
+			bottomPanel.add( new JLabel ("i'm on the bottom, you know?") );
+			bottomPanel.setBackground( Color.lightGray );		
 
 		// create main panel
 			mainPanel = new JPanel();
 			mainPanel.setSize( 500, 500 );
 			mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));	// BOX LAYOUT
 			mainPanel.setBackground( Color.gray );
+			
 		// add a button
 			mybutton = new JButton("OK");
 			mybutton.addActionListener(this);
-			mainPanel.add(mybutton);
+			topPanel.add(mybutton);
 		
 		// add a label
 			mylabel = new JLabel("some label");
-			mainPanel.add(mylabel);
+			topPanel.add(mylabel);
 			//mainPanel.addHorizontalLine();
 		
 			
 		
 		// add radio buttons	
+		JPanel radioPanel = new JPanel();
 			radio1 = new JRadioButton("This option?");
 			radio1.setMnemonic(KeyEvent.VK_B);
 			radio1.setActionCommand("This option?");
@@ -71,33 +82,31 @@ public class MainClass extends JApplet implements ActionListener
 			radio1.addActionListener(this);
 			radio2.addActionListener(this);
 		
-		mainPanel.add(radio1);
-		mainPanel.add(radio2);
+		radioPanel.add(radio1);
+		radioPanel.add(radio2);
 		
+		panelList.add( radioPanel );
+	
 		// add changePanel
-			changePanel = new JPanel();
-			changePanel.setBackground( Color.green );
-			changePanel.setSize( 500, 100 );
-			changePanel.setLayout(new BoxLayout(changePanel, BoxLayout.X_AXIS));	// BOX LAYOUT
-
-			changeLabel = new JLabel("MOTHERFUCKING LABEL");
-
+			tempPanel = new JPanel();
+			tempPanel.setBackground( Color.green );
+			tempPanel.add( new JLabel("MOTHERFUCKING LABEL") );
 			
-			changePanel.add(changeLabel);
+			
+			panelList.add( tempPanel );
 			
 		// add two random panels
 			tempPanel = new JPanel();
 			tempPanel.setBackground( Color.orange );
 			tempPanel.add( new JLabel("MOTHERFUCKING LABEL 1") );
-			tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.X_AXIS));	// BOX LAYOUT
+			
 			
 			panelList.add( tempPanel );
 			
 			
 			tempPanel = new JPanel();
-			tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.X_AXIS));	// BOX LAYOUT
-
-			tempPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+			tempPanel.setName("red panel");
+			
 			tempPanel.setBackground( Color.red );
 			tempPanel.add( new JLabel("MOTHERFUCKING LABEL 2") );
 			
@@ -110,10 +119,13 @@ public class MainClass extends JApplet implements ActionListener
 	        {
 	        	JPanel currPanel = panelIT.next();
 	        	
-	        	mainPanel.add ( currPanel );
+	        	topPanel.add ( currPanel );
 	        }
 		
-		mainPanel.add( changePanel );		
+		//topPanel.add( changePanel );		
+		
+		mainPanel.add( topPanel );
+		mainPanel.add( bottomPanel );
 		
 		this.add( mainPanel );
 		
@@ -127,7 +139,20 @@ public class MainClass extends JApplet implements ActionListener
 			{
 				mylabel.setText("My button was clicked");
 				mybutton.setText("Ok");
-				changePanel.setVisible(false);
+				//changePanel.setVisible(false);\
+				Iterator < JPanel >    panelIT =  panelList.iterator();
+		        
+		        while ( panelIT.hasNext() )
+		        {
+		        	JPanel currPanel = panelIT.next();
+		        	
+		        	if ( currPanel.getName() == "red panel" )
+		        	{
+		        		
+		        		currPanel.setVisible ( false );
+		        		
+		        	}
+		        }
 				return;
 			}
 		
@@ -135,7 +160,19 @@ public class MainClass extends JApplet implements ActionListener
 			{
 				mylabel.setText("");
 				mybutton.setText("Not Ok");
-				changePanel.setVisible(true);
+				Iterator < JPanel >    panelIT =  panelList.iterator();
+		        
+		        while ( panelIT.hasNext() )
+		        {
+		        	JPanel currPanel = panelIT.next();
+		        	
+		        	if ( currPanel.getName() == "red panel" )
+		        	{
+		        		
+		        		currPanel.setVisible ( true );
+		        		
+		        	}
+		        }
 				return;
 			}
 		
