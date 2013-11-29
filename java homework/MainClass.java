@@ -90,6 +90,7 @@ public class MainClass extends JApplet implements ActionListener
 		// add changePanel
 			tempPanel = new JPanel();
 			tempPanel.setBackground( Color.green );
+			tempPanel.setName("green panel");
 			tempPanel.add( new JLabel("MOTHERFUCKING LABEL") );
 			
 			
