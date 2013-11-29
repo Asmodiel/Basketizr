@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -6,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
 import javax.swing.JButton;
@@ -36,6 +38,8 @@ public class MainClass extends JApplet implements ActionListener
 
 		// create main panel
 			mainPanel = new JPanel();
+			mainPanel.setSize( 500, 500 );
+			mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));	// BOX LAYOUT
 			mainPanel.setBackground( Color.gray );
 		// add a button
 			mybutton = new JButton("OK");
@@ -73,8 +77,11 @@ public class MainClass extends JApplet implements ActionListener
 		// add changePanel
 			changePanel = new JPanel();
 			changePanel.setBackground( Color.green );
-			
+			changePanel.setSize( 500, 100 );
+			changePanel.setLayout(new BoxLayout(changePanel, BoxLayout.X_AXIS));	// BOX LAYOUT
+
 			changeLabel = new JLabel("MOTHERFUCKING LABEL");
+
 			
 			changePanel.add(changeLabel);
 			
@@ -82,11 +89,15 @@ public class MainClass extends JApplet implements ActionListener
 			tempPanel = new JPanel();
 			tempPanel.setBackground( Color.orange );
 			tempPanel.add( new JLabel("MOTHERFUCKING LABEL 1") );
+			tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.X_AXIS));	// BOX LAYOUT
 			
 			panelList.add( tempPanel );
 			
 			
 			tempPanel = new JPanel();
+			tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.X_AXIS));	// BOX LAYOUT
+
+			tempPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 			tempPanel.setBackground( Color.red );
 			tempPanel.add( new JLabel("MOTHERFUCKING LABEL 2") );
 			
@@ -99,10 +110,10 @@ public class MainClass extends JApplet implements ActionListener
 	        {
 	        	JPanel currPanel = panelIT.next();
 	        	
-	        	this.add ( currPanel );
+	        	mainPanel.add ( currPanel );
 	        }
 		
-		//mainPanel.add( changePanel );		
+		mainPanel.add( changePanel );		
 		
 		this.add( mainPanel );
 		
