@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 
 /* */
-
+// bla
 public class MainClass extends JApplet implements ActionListener {
 
 	/**
