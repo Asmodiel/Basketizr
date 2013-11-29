@@ -48,12 +48,22 @@ public void createTitle(String title)
 	{
 		tempPanel = new JPanel();
 		tempPanel.setName( id );
+		 ButtonGroup group = new ButtonGroup();
 		//tempPanel.setBackground( Color.orange );
 		
+		JRadioButton radio1 =  new JRadioButton( answer1 );
+		JRadioButton radio2 =  new JRadioButton( answer2 );
+		JRadioButton radio3 =  new JRadioButton( answer3 );
+		
+		group.add(radio1);
+		group.add(radio2);
+		group.add(radio3);
+		
 		tempPanel.add( new JLabel(question) );
-		tempPanel.add( new JRadioButton( answer1 ) );
-		tempPanel.add( new JRadioButton( answer2 ) );
-		tempPanel.add( new JRadioButton( answer3 ) );
+		tempPanel.add( radio1 );
+		tempPanel.add( radio2 );
+		tempPanel.add( radio3 );
+		
 		
 		tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.Y_AXIS));
 		panelList.add( tempPanel );
