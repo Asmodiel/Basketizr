@@ -9,10 +9,6 @@ import javax.swing.JPanel;
 
 public class MainClass extends JApplet implements ActionListener {
 
-	/**
-	 * 
-	 */
-	
 
 	JPanel mainPanel;
 	JPanel changePanel;
