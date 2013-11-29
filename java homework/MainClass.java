@@ -53,41 +53,42 @@ public void createTitle(String title)
 		
 		titlePanel.add( new JLabel(title), BorderLayout.PAGE_START );
 		
-		
-		mainPanel.add( titlePanel );
+		 mainPanel.add( titlePanel );
 	}
 	
 	public void createQuestionPanel(int in, String question, int id, String [] answers)
 	{
-		JPanel tempPanel = new JPanel();
-		tempPanel.setBackground( Color.green );
-		tempPanel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
-		tempPanel.setName( "" + id );
-	
-		ImageIcon img = createImageIcon("/images/img1.jpg");
-		JLabel tempLabel = new JLabel(img);
-		
-		tempLabel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
-		tempPanel.add( tempLabel );
-	
-		tempPanel.add( new JLabel(question) );
-		for(int i=0;i<answers.length;i++)
+		JPanel  tempPanel = new JPanel();
+				tempPanel.setName( "" + id );
+				tempPanel.setBackground( Color.green );
+				tempPanel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
+					
+		JLabel  tempLabel = new JLabel( createImageIcon("/images/img1.jpg") );
+				tempLabel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
+				tempPanel.add( tempLabel );
+				
+				tempPanel.add( new JLabel(question) );
+				
+		for( int i = 0; i < answers.length; i++ )
 		{
-			JRadioButton temp = new JRadioButton(answers[i]);
-			allgroups[in].add(temp);
-			tempPanel.add(temp);
+			JRadioButton temp = new JRadioButton( answers[ i ] );
+			allgroups[ in ].add( temp );
+			tempPanel.add( temp );
+			if( temp_correct[ id ] == i )
+			{
+				correct[ id ] = temp.getModel( );
+			}
 		}
 		
-		//tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.Y_AXIS));
-		panelList.add( tempPanel );
+				panelList.add( tempPanel );
 	}
 	
 	public JButton createButton(String name)
 	{
 		
-		JButton button = new JButton(name);
+		JButton button = new JButton( name );
 		
-		button.addActionListener(this);
+		button.addActionListener( this );
 		
 		bottomPanel.add( button );
 		
