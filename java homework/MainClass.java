@@ -49,7 +49,7 @@ public void createTitle(String title)
 	{
 		JPanel tempPanel = new JPanel();
 		tempPanel.setName( id );
-		 ButtonGroup group = new ButtonGroup();
+		ButtonGroup group = new ButtonGroup();
 		//tempPanel.setBackground( Color.orange );
 		
 		JRadioButton radio1 =  new JRadioButton( answer1 );
