@@ -22,6 +22,7 @@ public class MainClass extends JApplet implements ActionListener
  {
 	//test
 	JPanel mainPanel;
+	JPanel titlePanel;
 	JPanel contentPanel;
 	JPanel bottomPanel;
 	
@@ -38,16 +39,14 @@ public class MainClass extends JApplet implements ActionListener
 	int [] correct = new int [PANELS]; 	 	
 	ButtonGroup [] allgroups = new ButtonGroup [PANELS];	
 	
-	JButton tempButton;
-	JLabel tempLabel;
-	JPanel tempPanel;
+	JLabel statusLabel;
 	
 	JRadioButton correctRadio;
 	JRadioButton wrongRadio;
 
 public void createTitle(String title)
 	{
-		JPanel titlePanel = new JPanel();
+		titlePanel = new JPanel();
 		titlePanel.setName("title");
 		titlePanel.setBackground( Color.orange );
 		titlePanel.setPreferredSize( new Dimension( 500, 50 ) );
@@ -138,8 +137,8 @@ public void createTitle(String title)
 			bottomPanel.setPreferredSize( new Dimension( 500, 50 ) );
 			bottomPanel.setBackground( Color.lightGray );
 			
-			tempLabel = new JLabel(" status ");
-			bottomPanel.add( tempLabel );
+			statusLabel = new JLabel(" status ");
+			bottomPanel.add( statusLabel );
 			
 		
 			//MAIN FOR HOMEWERK
@@ -187,14 +186,14 @@ public void createTitle(String title)
 		@Override
 		public void actionPerformed(ActionEvent event)
 		{
-			if( event.getSource() == tempButton )
+			/*if( event.getSource() == tempButton )
 			{	
 				if(score < 2 )
 					tempLabel.setText("Your score is: " + score + ". You failed, bitch!");
 				else
 					tempLabel.setText("Your score is: " + score + ". You passed, bitch!");
 			}
-			event.getSource();
+			event.getSource();*/
 			
 
 /*				if (event.getSource() == mybutton && mylabel.getText() != "My button was clicked")
