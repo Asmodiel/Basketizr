@@ -19,7 +19,8 @@ public class MainClass extends JApplet implements ActionListener
  {
 	//test
 	JPanel mainPanel;
-	JPanel changePanel;
+	JPanel contentPanel;
+	JPanel bottomPanel;
 	JPanel tempPanel;
 	List<JPanel>  panelList  = new ArrayList  <JPanel>  ();
 	
@@ -32,26 +33,29 @@ public class MainClass extends JApplet implements ActionListener
 
 public void createTitle(String title)
 	{
-		tempPanel = new JPanel();
-		tempPanel.setBackground( Color.white );
+		JPanel titlePanel = new JPanel();
+		titlePanel.setName("title");
+		titlePanel.setBackground( Color.orange );
+		titlePanel.setSize( 50, 50 );
 		
-		tempPanel.add( new JLabel(title));
+		titlePanel.add( new JLabel(title));
 		
-		tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.X_AXIS));
-		panelList.add( tempPanel );
+		
+		mainPanel.add( titlePanel );
 	}
 	
-	public void createQuestionPanel(String question, String answer1, String answer2, String answer3)
+	public void createQuestionPanel(String question, String id, String answer1, String answer2, String answer3)
 	{
 		tempPanel = new JPanel();
+		tempPanel.setName( id );
 		//tempPanel.setBackground( Color.orange );
 		
 		tempPanel.add( new JLabel(question) );
-		tempPanel.add( new JRadioButton( answer1));
-		tempPanel.add( new JRadioButton( answer2));
-		tempPanel.add( new JRadioButton( answer3));
+		tempPanel.add( new JRadioButton( answer1 ) );
+		tempPanel.add( new JRadioButton( answer2 ) );
+		tempPanel.add( new JRadioButton( answer3 ) );
 		
-		tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.X_AXIS));
+		tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.Y_AXIS));
 		panelList.add( tempPanel );
 	}
 	
@@ -59,7 +63,7 @@ public void createTitle(String title)
 	{
 		tempPanel = new JPanel();
 		tempPanel.add( new JButton(name) );
-		tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.X_AXIS));
+		
 		panelList.add( tempPanel );
 	}
 	
@@ -69,20 +73,27 @@ public void createTitle(String title)
         while ( panelIT.hasNext() )
         {
         	JPanel currPanel = panelIT.next();
-        	mainPanel.add ( currPanel );
+        	contentPanel.add ( currPanel );
         }
 		
-		this.add( mainPanel );
+		this.add( contentPanel );
+				
 	}
 	
 	public void init()
 	{
 		
 		this.setSize( 500, 500 );
+
+		// create main panel
+		mainPanel = new JPanel();
+		mainPanel.setSize( 500, 500 );
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));	// BOX LAYOUT
+		mainPanel.setBackground( Color.gray );		
 		
-		JPanel topPanel = new JPanel();
-			topPanel.setBackground( Color.WHITE );
-			topPanel.setSize( 500, 400 );
+		contentPanel = new JPanel();
+			contentPanel.setBackground( Color.WHITE );
+			contentPanel.setSize( 500, 400 );
 		
 		JPanel bottomPanel = new JPanel();
 		
@@ -90,101 +101,24 @@ public void createTitle(String title)
 			bottomPanel.setLocation(0, 400);
 			bottomPanel.add( new JLabel ("i'm on the bottom, you know?") );
 			bottomPanel.setBackground( Color.lightGray );
+			
+		mainPanel.add( contentPanel );
+		mainPanel.add( bottomPanel );
 		
-/*			MAIN FOR HOMEWERK
+			
+		
+			//MAIN FOR HOMEWERK
 			createTitle("Sample C Driver Written Test");
 			
-			createQuestionPanel("1. blah", "1", "2", "3");
-			createQuestionPanel("1. blah", "1", "2", "3");
-			createQuestionPanel("1. blah", "1", "2", "3");
+			createQuestionPanel("1. blah", "q1", "1", "2", "3");
+			createQuestionPanel("1. blah", "q2", "1", "2", "3");
+			createQuestionPanel("1. blah", "q2", "1", "2", "3");
 			createButton("Submit");
-			
 			printPanels();
-*/
+			
 
-
-
-		// create main panel
-			mainPanel = new JPanel();
-			mainPanel.setSize( 500, 500 );
-			mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));	// BOX LAYOUT
-			mainPanel.setBackground( Color.gray );
-			
-		// add a button
-			mybutton = new JButton("OK");
-			mybutton.addActionListener(this);
-			topPanel.add(mybutton);
 		
-		// add a label
-			mylabel = new JLabel("some label");
-			topPanel.add(mylabel);
-			//mainPanel.addHorizontalLine();
-		
-			
-		
-		// add radio buttons	
-		JPanel radioPanel = new JPanel();
-			radio1 = new JRadioButton("This option?");
-			radio1.setMnemonic(KeyEvent.VK_B);
-			radio1.setActionCommand("This option?");
-			radio1.setSelected(true);
-		
-		
-			radio2 = new JRadioButton("Maybe This?");
-			radio2.setMnemonic(KeyEvent.VK_C);
-			radio2.setActionCommand("Maybe This?");
-			
-			ButtonGroup group = new ButtonGroup();
-			group.add(radio1);
-			group.add(radio2);
-		
-			radio1.addActionListener(this);
-			radio2.addActionListener(this);
-		
-		radioPanel.add(radio1);
-		radioPanel.add(radio2);
-		
-		panelList.add( radioPanel );
-	
-		// add changePanel
-			tempPanel = new JPanel();
-			tempPanel.setBackground( Color.green );
-			tempPanel.setName("green panel");
-			tempPanel.add( new JLabel("MOTHERFUCKING LABEL") );
-			
-			
-			panelList.add( tempPanel );
-			
-		// add two random panels
-			tempPanel = new JPanel();
-			tempPanel.setBackground( Color.orange );
-			tempPanel.add( new JLabel("MOTHERFUCKING LABEL 1") );
-			
-			
-			panelList.add( tempPanel );
-			
-			
-			tempPanel = new JPanel();
-			tempPanel.setName("red panel");
-			
-			tempPanel.setBackground( Color.red );
-			tempPanel.add( new JLabel("MOTHERFUCKING LABEL 2") );
-			
-			panelList.add( tempPanel );
-			
-		// add random panels to main panel
-			Iterator < JPanel >    panelIT =  panelList.iterator();
-	        
-	        while ( panelIT.hasNext() )
-	        {
-	        	JPanel currPanel = panelIT.next();
-	        	
-	        	topPanel.add ( currPanel );
-	        }
-		
-		//topPanel.add( changePanel );		
-		
-		mainPanel.add( topPanel );
+		mainPanel.add( contentPanel );
 		mainPanel.add( bottomPanel );
 		
 		this.add( mainPanel );
