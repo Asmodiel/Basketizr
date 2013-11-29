@@ -17,6 +17,7 @@ import javax.swing.JRadioButton;
 
 public class MainClass extends JApplet implements ActionListener
  {
+	//test
 	JPanel mainPanel;
 	JPanel changePanel;
 	JPanel tempPanel;
