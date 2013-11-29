@@ -27,6 +27,7 @@ public class MainClass extends JApplet implements ActionListener
 	
 	
 	JButton tempButton;
+	JLabel tempLabel;
 	JPanel tempPanel;
 	
 	JRadioButton correctRadio;
@@ -111,12 +112,16 @@ public void createTitle(String title)
 			contentPanel.setBackground( Color.WHITE );
 			contentPanel.setSize( 500, 400 );
 		
-		JPanel bottomPanel = new JPanel();
+		bottomPanel = new JPanel();
 		
 			bottomPanel.setSize( 500, 100 );
 			bottomPanel.setLocation(0, 400);
 			bottomPanel.add( new JLabel ("i'm on the bottom, you know?") );
 			bottomPanel.setBackground( Color.lightGray );
+			
+			tempLabel = new JLabel(" status ");
+			bottomPanel.add( tempLabel );
+			
 		
 			//MAIN FOR HOMEWERK
 			createTitle("Sample C Driver Written Test");
@@ -142,11 +147,12 @@ public void createTitle(String title)
 		{
 			if( event.getSource() == tempButton )
 			{		
-				
+				tempLabel.setText("My button was clicked");
 			}
-/*
-				if (event.getSource() == mybutton && mylabel.getText() != "My button was clicked")
->>>>>>> Button action
+			
+
+/*				if (event.getSource() == mybutton && mylabel.getText() != "My button was clicked")
+//>>>>>>> Button action
 			{
 				mylabel.setText("My button was clicked");
 				mybutton.setText("Ok");
