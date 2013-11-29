@@ -31,12 +31,15 @@ public class MainClass extends JApplet implements ActionListener
 	
 	List<JPanel>  panelList  = new ArrayList  <JPanel>  ();
 	
+<<<<<<< HEAD
 	int currentPanelID = 2;
 	
 	int score;
 	static final int PANELS = 3; 	 	
 	int [] correct = new int [PANELS]; 	 	
 	ButtonGroup [] allgroups = new ButtonGroup [PANELS];	
+=======
+>>>>>>> 468fd2c33f462a34d77e7ab55cf1f707b9bb29a5
 	
 	JButton tempButton;
 	JLabel tempLabel;
@@ -58,6 +61,7 @@ public void createTitle(String title)
 		mainPanel.add( titlePanel );
 	}
 	
+<<<<<<< HEAD
 	public void createQuestionPanel(int in, String question, int id, String [] answers)
 	{
 		JPanel tempPanel = new JPanel();
@@ -71,13 +75,28 @@ public void createTitle(String title)
 		tempLabel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
 		tempPanel.add( tempLabel );
 	
+=======
+	public void createQuestionPanel(String question, String id, String answer1, String answer2, String answer3)
+	{
+		JPanel tempPanel = new JPanel();
+		tempPanel.setName( id );
+		ButtonGroup group = new ButtonGroup();
+		//tempPanel.setBackground( Color.orange );
+		
+		JRadioButton radio1 =  new JRadioButton( answer1 );
+		JRadioButton radio2 =  new JRadioButton( answer2 );
+		JRadioButton radio3 =  new JRadioButton( answer3 );
+		
+		group.add(radio1);
+		group.add(radio2);
+		group.add(radio3);
+		
+>>>>>>> 468fd2c33f462a34d77e7ab55cf1f707b9bb29a5
 		tempPanel.add( new JLabel(question) );
-		for(int i=0;i<answers.length;i++)
-		{
-			JRadioButton temp = new JRadioButton(answers[i]);
-			allgroups[in].add(temp);
-			tempPanel.add(temp);
-		}
+		tempPanel.add( radio1 );
+		tempPanel.add( radio2 );
+		tempPanel.add( radio3 );
+		
 		
 		//tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.Y_AXIS));
 		panelList.add( tempPanel );
@@ -85,6 +104,7 @@ public void createTitle(String title)
 	
 	public JButton createButton(String name)
 	{
+<<<<<<< HEAD
 		
 		JButton button = new JButton(name);
 		
@@ -92,6 +112,16 @@ public void createTitle(String title)
 		
 		bottomPanel.add( button );
 		
+=======
+		tempPanel = new JPanel();
+		JButton button = new JButton(name);
+		
+		button.addActionListener(this);
+		
+		tempPanel.add( button );
+		
+		bottomPanel.add( tempPanel );
+>>>>>>> 468fd2c33f462a34d77e7ab55cf1f707b9bb29a5
 		return button;
 	}
 	
@@ -110,32 +140,30 @@ public void createTitle(String title)
 				
 	}
 	
-	protected static ImageIcon createImageIcon(String path)
-	{
-	    URL imgURL = MainClass.class.getResource(path);
-		
-		return new ImageIcon( imgURL );
-	}	
-	
 	public void init()
 	{
-		score = 0;
-		this.setSize( 500, 600 );
 		
+		this.setSize( 500, 700 );
+
 		// create main panel
-		mainPanel = new JPanel( );
+		mainPanel = new JPanel( new CardLayout() );
 		mainPanel.setSize( 500, 500 );
-		//mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));	// BOX LAYOUT
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));	// BOX LAYOUT
 		mainPanel.setBackground( Color.gray );		
 		
 		contentPanel = new JPanel();
 			contentPanel.setBackground( Color.WHITE );
-			contentPanel.setLayout( new BoxLayout( contentPanel, BoxLayout.Y_AXIS ) );
-			contentPanel.setPreferredSize( new Dimension( 500, 500 ) );
+			contentPanel.setSize( 500, 400 );
 		
 		bottomPanel = new JPanel();
 		
+<<<<<<< HEAD
 			bottomPanel.setPreferredSize( new Dimension( 500, 50 ) );
+=======
+			bottomPanel.setSize( 500, 100 );
+			bottomPanel.setLocation(0, 400);
+			bottomPanel.add( new JLabel ("i'm on the bottom, you know?") );
+>>>>>>> 468fd2c33f462a34d77e7ab55cf1f707b9bb29a5
 			bottomPanel.setBackground( Color.lightGray );
 			
 			tempLabel = new JLabel(" status ");
@@ -144,11 +172,8 @@ public void createTitle(String title)
 		
 			//MAIN FOR HOMEWERK
 			createTitle("Sample C Driver Written Test");
-			String[] questions = new String [PANELS];
-			questions[0]="1. You may drive off of the paved roadway to pass another vehicle:";
-			questions[1]="2. What is the meaning of this sign?";
-			questions[2]="3. What is the meaning of this sign?";
 			
+<<<<<<< HEAD
 			String[][] answers = new String [PANELS][3];
 			answers[0][0] = "if the vehicle ahead of you is turning left";
 			answers[0][1] = "if the vehicle ahead of you is turning right";
@@ -171,6 +196,33 @@ public void createTitle(String title)
 			nextButton = createButton("Next");
 			prevButton = createButton("Previous");
 			submitButton = createButton("Submit");
+=======
+			createQuestionPanel
+			(
+				"1. You may drive off of the paved roadway to pass another vehicle:"
+				, "q1"
+				, "if the vehicle ahead of you is turning left"
+				, "if the vehicle ahead of you is turning left"
+				, "under no circumstances"
+			);
+			createQuestionPanel
+			(
+				"2. What is the meaning of this sign?"
+				, "q2"
+				, "give way"
+				, "no entry for vehicular traffic"
+				, "give way to traffic on your right"
+			);
+			createQuestionPanel
+			(
+				"3. What is the meaning of this sign?"
+				, "q3"
+				, "no motor vehicles"
+				, "no pedestrians"
+				, "no parking"
+			);
+			createButton("Submit");
+>>>>>>> 468fd2c33f462a34d77e7ab55cf1f707b9bb29a5
 			printPanels();
 			panelList.get(0).setVisible(true);
 			
@@ -188,11 +240,8 @@ public void createTitle(String title)
 		public void actionPerformed(ActionEvent event)
 		{
 			if( event.getSource() == tempButton )
-			{	
-				if(score < 2 )
-					tempLabel.setText("Your score is: " + score + ". You failed, bitch!");
-				else
-					tempLabel.setText("Your score is: " + score + ". You passed, bitch!");
+			{		
+				tempLabel.setText("My button was clicked");
 			}
 			event.getSource();
 			
