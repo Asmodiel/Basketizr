@@ -28,6 +28,51 @@ public class MainClass extends JApplet implements ActionListener
 	
 	JRadioButton radio1;
 	JRadioButton radio2;
+
+public void createTitle(String title)
+	{
+		tempPanel = new JPanel();
+		tempPanel.setBackground( Color.white );
+		
+		tempPanel.add( new JLabel(title));
+		
+		tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.X_AXIS));
+		panelList.add( tempPanel );
+	}
+	
+	public void createQuestionPanel(String question, String answer1, String answer2, String answer3)
+	{
+		tempPanel = new JPanel();
+		//tempPanel.setBackground( Color.orange );
+		
+		tempPanel.add( new JLabel(question) );
+		tempPanel.add( new JRadioButton( answer1));
+		tempPanel.add( new JRadioButton( answer2));
+		tempPanel.add( new JRadioButton( answer3));
+		
+		tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.X_AXIS));
+		panelList.add( tempPanel );
+	}
+	
+	public void createButton(String name)
+	{
+		tempPanel = new JPanel();
+		tempPanel.add( new JButton(name) );
+		tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.X_AXIS));
+		panelList.add( tempPanel );
+	}
+	
+	public void printPanels()
+	{
+		Iterator < JPanel >    panelIT =  panelList.iterator();			
+        while ( panelIT.hasNext() )
+        {
+        	JPanel currPanel = panelIT.next();
+        	mainPanel.add ( currPanel );
+        }
+		
+		this.add( mainPanel );
+	}
 	
 	public void init()
 	{
@@ -43,7 +88,20 @@ public class MainClass extends JApplet implements ActionListener
 			bottomPanel.setSize( 500, 100 );
 			bottomPanel.setLocation(0, 400);
 			bottomPanel.add( new JLabel ("i'm on the bottom, you know?") );
-			bottomPanel.setBackground( Color.lightGray );		
+			bottomPanel.setBackground( Color.lightGray );
+		
+/*			MAIN FOR HOMEWERK
+			createTitle("Sample C Driver Written Test");
+			
+			createQuestionPanel("1. blah", "1", "2", "3");
+			createQuestionPanel("1. blah", "1", "2", "3");
+			createQuestionPanel("1. blah", "1", "2", "3");
+			createButton("Submit");
+			
+			printPanels();
+*/
+
+
 
 		// create main panel
 			mainPanel = new JPanel();
