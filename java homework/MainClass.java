@@ -187,12 +187,12 @@ public void createTitle(String title)
 		@Override
 		public void actionPerformed(ActionEvent event)
 		{
-			if( event.getSource() == tempButton )
+			if( event.getSource() == submitButton )
 			{	
 				if(score < 2 )
-					tempLabel.setText("Your score is: " + score + ". You failed, bitch!");
+					statusLabel.setText("Your score is: " + score + ". You failed, bitch!");
 				else
-					tempLabel.setText("Your score is: " + score + ". You passed, bitch!");
+					statusLabel.setText("Your score is: " + score + ". You passed, bitch!");
 			}
 			
 			if( event.getSource() == nextButton )
