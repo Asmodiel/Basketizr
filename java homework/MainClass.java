@@ -26,7 +26,9 @@ public class MainClass extends JApplet implements ActionListener
 	List<JPanel>  panelList  = new ArrayList  <JPanel>  ();
 	
 	int score;
-	
+	static final int PANELS = 3; 	 	
+	int [] correct = new int [PANELS]; 	 	
+	ButtonGroup [] allgroups = new ButtonGroup [PANELS];	
 	
 	JButton tempButton;
 	JLabel tempLabel;
@@ -48,28 +50,21 @@ public void createTitle(String title)
 		mainPanel.add( titlePanel );
 	}
 	
-	public void createQuestionPanel(String question, String id, String answer1, String answer2, String answer3)
+	public void createQuestionPanel(int in, String question, String id, String [] answers)
 	{
 		JPanel tempPanel = new JPanel();
 		tempPanel.setName( id );
-		tempPanel.setBackground( Color.WHITE );
-		
-		JRadioButton radio1 =  new JRadioButton( answer1 );
-		JRadioButton radio2 =  new JRadioButton( answer2 );
-		JRadioButton radio3 =  new JRadioButton( answer3 );
-		
-		ButtonGroup group = new ButtonGroup();
-		group.add( radio1 );
-		group.add( radio2 );
-		group.add( radio3 );
-		
+		//tempPanel.setBackground( Color.orange );
+	
 		tempPanel.add( new JLabel(question) );
-		tempPanel.add( radio1 );
-		tempPanel.add( radio2 );
-		tempPanel.add( radio3 );
+		for(int i=0;i<answers.length;i++)
+		{
+			JRadioButton temp = new JRadioButton(answers[i]);
+			allgroups[in].add(temp);
+			tempPanel.add(temp);
+		}
 		
-		
-		tempPanel.setLayout( new BoxLayout( tempPanel, BoxLayout.Y_AXIS ) );
+		tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.Y_AXIS));
 		panelList.add( tempPanel );
 	}
 	
@@ -103,7 +98,7 @@ public void createTitle(String title)
 	{
 		score = 0;
 		this.setSize( 500, 600 );
-
+		
 		// create main panel
 		mainPanel = new JPanel( );
 		mainPanel.setSize( 500, 500 );
@@ -127,31 +122,30 @@ public void createTitle(String title)
 		
 			//MAIN FOR HOMEWERK
 			createTitle("Sample C Driver Written Test");
+			String[] questions = new String [PANELS];
+			questions[0]="1. You may drive off of the paved roadway to pass another vehicle:";
+			questions[1]="2. What is the meaning of this sign?";
+			questions[2]="3. What is the meaning of this sign?";
 			
-			createQuestionPanel
-			(
-				"1. You may drive off of the paved roadway to pass another vehicle:"
-				, "q1"
-				, "if the vehicle ahead of you is turning left"
-				, "if the vehicle ahead of you is turning left"
-				, "under no circumstances"
-			);
-			createQuestionPanel
-			(
-				"2. What is the meaning of this sign?"
-				, "q2"
-				, "give way"
-				, "no entry for vehicular traffic"
-				, "give way to traffic on your right"
-			);
-			createQuestionPanel
-			(
-				"3. What is the meaning of this sign?"
-				, "q3"
-				, "no motor vehicles"
-				, "no pedestrians"
-				, "no parking"
-			);
+			String[][] answers = new String [PANELS][3];
+			answers[0][0] = "if the vehicle ahead of you is turning left";
+			answers[0][1] = "if the vehicle ahead of you is turning right";
+			answers[0][2] = "under no circumstances";
+
+			answers[1][0] = "give way";
+			answers[1][1] = "no entry for vehicular traffic";
+			answers[1][2] = "give way to traffic on your right";
+
+			answers[2][0] = "no motor vehicles";
+			answers[2][1] = "no pedestrians";
+			answers[2][2] = "no parking";			
+
+			for(int i=0;i<PANELS;i++)
+			{
+				correct[i] = i%3;
+				allgroups[i] = new ButtonGroup();
+				createQuestionPanel(i,questions[i],"q"+i,answers[i]);
+			}			
 			createButton("Submit");
 			printPanels();
 			
