@@ -25,6 +25,8 @@ public class MainClass extends JApplet implements ActionListener
 	JPanel bottomPanel;
 	List<JPanel>  panelList  = new ArrayList  <JPanel>  ();
 	
+	int score;
+	
 	
 	JButton tempButton;
 	JLabel tempLabel;
@@ -99,7 +101,7 @@ public void createTitle(String title)
 	
 	public void init()
 	{
-		
+		score = 0;
 		this.setSize( 500, 600 );
 
 		// create main panel
@@ -167,8 +169,11 @@ public void createTitle(String title)
 		public void actionPerformed(ActionEvent event)
 		{
 			if( event.getSource() == tempButton )
-			{		
-				tempLabel.setText("My button was clicked");
+			{	
+				if(score < 2 )
+					tempLabel.setText("Your score is: " + score + ". You failed, bitch!");
+				else
+					tempLabel.setText("Your score is: " + score + ". You passed, bitch!");
 			}
 			
 
