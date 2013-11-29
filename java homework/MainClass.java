@@ -1,6 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.ButtonModel;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -22,7 +26,6 @@ public class MainClass extends JApplet implements ActionListener
  {
 	//test
 	JPanel mainPanel;
-	JPanel titlePanel;
 	JPanel contentPanel;
 	JPanel bottomPanel;
 	
@@ -36,59 +39,65 @@ public class MainClass extends JApplet implements ActionListener
 	
 	int score;
 	static final int PANELS = 3; 	 	
-	int [] correct = new int [PANELS]; 	 	
+	int [] temp_correct = new int [PANELS];
+	ButtonModel [] correct = new ButtonModel [PANELS];	 	
 	ButtonGroup [] allgroups = new ButtonGroup [PANELS];	
 	
-	JLabel statusLabel;
+	JButton tempButton;
+	JLabel tempLabel;
+	JPanel tempPanel;
 	
 	JRadioButton correctRadio;
 	JRadioButton wrongRadio;
 
 public void createTitle(String title)
 	{
-		titlePanel = new JPanel();
+		JPanel titlePanel = new JPanel();
 		titlePanel.setName("title");
 		titlePanel.setBackground( Color.orange );
 		titlePanel.setPreferredSize( new Dimension( 500, 50 ) );
 		
 		titlePanel.add( new JLabel(title), BorderLayout.PAGE_START );
 		
-		 mainPanel.add( titlePanel );
+		
+		mainPanel.add( titlePanel );
 	}
 	
 	public void createQuestionPanel(int in, String question, int id, String [] answers)
 	{
-		JPanel  tempPanel = new JPanel();
-				tempPanel.setName( "" + id );
-				tempPanel.setBackground( Color.green );
-				tempPanel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
-					
-		JLabel  tempLabel = new JLabel( createImageIcon("/images/img1.jpg") );
-				tempLabel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
-				tempPanel.add( tempLabel );
-				
-				tempPanel.add( new JLabel(question) );
-				
-		for( int i = 0; i < answers.length; i++ )
+		JPanel tempPanel = new JPanel();
+		tempPanel.setBackground( Color.green );
+		tempPanel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
+		tempPanel.setName( "" + id );
+	
+		ImageIcon img = createImageIcon("/images/img1.jpg");
+		JLabel tempLabel = new JLabel(img);
+		
+		tempLabel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
+		tempPanel.add( tempLabel );
+	
+		tempPanel.add( new JLabel(question) );
+		for(int i=0;i<answers.length;i++)
 		{
-			JRadioButton temp = new JRadioButton( answers[ i ] );
-			allgroups[ in ].add( temp );
-			tempPanel.add( temp );
-			if( temp_correct[ id ] == i )
-			{
-				correct[ id ] = temp.getModel( );
+			JRadioButton temp = new JRadioButton(answers[i]);
+			allgroups[in].add(temp);
+			tempPanel.add(temp);
+			if( temp_correct[ id ] == i ) 
+			{ 
+				correct[ id ] = temp.getModel( ); 
 			}
 		}
 		
-				panelList.add( tempPanel );
+		//tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.Y_AXIS));
+		panelList.add( tempPanel );
 	}
 	
 	public JButton createButton(String name)
 	{
 		
-		JButton button = new JButton( name );
+		JButton button = new JButton(name);
 		
-		button.addActionListener( this );
+		button.addActionListener(this);
 		
 		bottomPanel.add( button );
 		
@@ -138,8 +147,8 @@ public void createTitle(String title)
 			bottomPanel.setPreferredSize( new Dimension( 500, 50 ) );
 			bottomPanel.setBackground( Color.lightGray );
 			
-			statusLabel = new JLabel(" status ");
-			bottomPanel.add( statusLabel );
+			tempLabel = new JLabel(" status ");
+			bottomPanel.add( tempLabel );
 			
 		
 			//MAIN FOR HOMEWERK
@@ -164,7 +173,7 @@ public void createTitle(String title)
 
 			for(int i=0;i<PANELS;i++)
 			{
-				correct[i] = i%3;
+				temp_correct[i] = i%3;
 				allgroups[i] = new ButtonGroup();
 				createQuestionPanel(i,questions[i], i, answers[i]);
 			}		
@@ -187,31 +196,96 @@ public void createTitle(String title)
 		@Override
 		public void actionPerformed(ActionEvent event)
 		{
-			if( event.getSource() == submitButton )
+			if( event.getSource() == tempButton )
 			{	
 				if(score < 2 )
-					statusLabel.setText("Your score is: " + score + ". You failed, bitch!");
+					tempLabel.setText("Your score is: " + score + ". You failed, bitch!");
 				else
-					statusLabel.setText("Your score is: " + score + ". You passed, bitch!");
+					tempLabel.setText("Your score is: " + score + ". You passed, bitch!");
 			}
-			
-			if( event.getSource() == nextButton )
+			event.getSource();
+			if(event.getSource().getClass()==JButton.class)
 			{
-				panelList.get(currentPanelID % 3).setVisible(false);
-				panelList.get(++currentPanelID % 3).setVisible(true);
-			}
-				
-			if( event.getSource() == prevButton )
+				if(((JButton)(event.getSource())).getText()=="Submit")
+				{
+					score = 0;
+					for(int i=0;i<PANELS;i++)
+					{
+						//JRadioButton [] buttonList = //((Component)allgroups[i]).getChildren()
+						if (allgroups[i].getSelection() == correct[i])
+						{
+							score++;
+						}
+					}
+				}
+				String alert = "failed";
+				if(score==PANELS)
+				{
+					alert = "passed";
+				}
+				infoBox("Your score is " + score, "You " + alert + " the test!");
+			}			
+
+/*				if (event.getSource() == mybutton && mylabel.getText() != "My button was clicked")
+//>>>>>>> Button action
 			{
-				if( currentPanelID < 3)
-					currentPanelID += 3;
-				panelList.get(currentPanelID % 3).setVisible(false);
-				panelList.get(--currentPanelID % 3).setVisible(true);
+				mylabel.setText("My button was clicked");
+				mybutton.setText("Ok");
+				//changePanel.setVisible(false);\
+				Iterator < JPanel >    panelIT =  panelList.iterator();
+		        
+		        while ( panelIT.hasNext() )
+		        {
+		        	JPanel currPanel = panelIT.next();
+		        	
+		        	if ( currPanel.getName() == "red panel" )
+		        	{
+		        		
+		        		currPanel.setVisible ( false );
+		        		
+		        	}
+		        }
+				return;
 			}
+		
+			if (event.getSource() == mybutton && mylabel.getText() == "My button was clicked")
+			{
+				mylabel.setText("");
+				mybutton.setText("Not Ok");
+				Iterator < JPanel >    panelIT =  panelList.iterator();
+		        
+		        while ( panelIT.hasNext() )
+		        {
+		        	JPanel currPanel = panelIT.next();
+		        	
+		        	if ( currPanel.getName() == "red panel" )
+		        	{
+		        		
+		        		currPanel.setVisible ( true );
+		        		
+		        	}
+		        }
+				return;
+			}
+		
+			if (event.getSource() == radio1)
+			{
+				mylabel.setText("My radio1button was clicked");
+				return;
+			}
+		
+			if (event.getSource() == radio2)
+			{
+				mylabel.setText("My radio2button was clicked");
+				return;
+			}
+*/
 			
 		}
-
-	
+		public static void infoBox(String infoMessage, String location)
+	    {
+	        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + location, JOptionPane.INFORMATION_MESSAGE);
+	    }
 	
 	/**
 	 * @param args
