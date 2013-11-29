@@ -1,20 +1,21 @@
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+@SuppressWarnings("serial")
 public class MainClass extends JApplet implements ActionListener
  {
 	//test
@@ -35,9 +36,9 @@ public void createTitle(String title)
 		JPanel titlePanel = new JPanel();
 		titlePanel.setName("title");
 		titlePanel.setBackground( Color.orange );
-		titlePanel.setSize( 50, 50 );
+		titlePanel.setPreferredSize( new Dimension( 500, 50 ) );
 		
-		titlePanel.add( new JLabel(title));
+		titlePanel.add( new JLabel(title), BorderLayout.PAGE_START );
 		
 		
 		mainPanel.add( titlePanel );
@@ -95,7 +96,7 @@ public void createTitle(String title)
 		this.setSize( 500, 500 );
 
 		// create main panel
-		mainPanel = new JPanel();
+		mainPanel = new JPanel( new CardLayout() );
 		mainPanel.setSize( 500, 500 );
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));	// BOX LAYOUT
 		mainPanel.setBackground( Color.gray );		
@@ -110,11 +111,6 @@ public void createTitle(String title)
 			bottomPanel.setLocation(0, 400);
 			bottomPanel.add( new JLabel ("i'm on the bottom, you know?") );
 			bottomPanel.setBackground( Color.lightGray );
-			
-		mainPanel.add( contentPanel );
-		mainPanel.add( bottomPanel );
-		
-			
 		
 			//MAIN FOR HOMEWERK
 			createTitle("Sample C Driver Written Test");
@@ -127,8 +123,8 @@ public void createTitle(String title)
 			
 
 		
-		mainPanel.add( contentPanel );
-		mainPanel.add( bottomPanel );
+			mainPanel.add( contentPanel, BorderLayout.CENTER );
+			mainPanel.add( bottomPanel, BorderLayout.PAGE_END );
 		
 		this.add( mainPanel );
 		
@@ -138,7 +134,7 @@ public void createTitle(String title)
 		@Override
 		public void actionPerformed(ActionEvent event)
 		{
-				if (event.getSource() == mybutton && mylabel.getText() != "My button was clicked")
+			if (event.getSource() == mybutton && mylabel.getText() != "My button was clicked")
 			{
 				mylabel.setText("My button was clicked");
 				mybutton.setText("Ok");
