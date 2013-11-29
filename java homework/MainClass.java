@@ -100,7 +100,7 @@ public void createTitle(String title)
 	public void init()
 	{
 		
-		this.setSize( 500, 500 );
+		this.setSize( 500, 700 );
 
 		// create main panel
 		mainPanel = new JPanel( new CardLayout() );
@@ -126,9 +126,30 @@ public void createTitle(String title)
 			//MAIN FOR HOMEWERK
 			createTitle("Sample C Driver Written Test");
 			
-			createQuestionPanel("1. blah", "q1", "1", "2", "3");
-			createQuestionPanel("1. blah", "q2", "1", "2", "3");
-			createQuestionPanel("1. blah", "q2", "1", "2", "3");
+			createQuestionPanel
+			(
+				"1. You may drive off of the paved roadway to pass another vehicle:"
+				, "q1"
+				, "if the vehicle ahead of you is turning left"
+				, "if the vehicle ahead of you is turning left"
+				, "under no circumstances"
+			);
+			createQuestionPanel
+			(
+				"2. What is the meaning of this sign?"
+				, "q2"
+				, "give way"
+				, "no entry for vehicular traffic"
+				, "give way to traffic on your right"
+			);
+			createQuestionPanel
+			(
+				"3. What is the meaning of this sign?"
+				, "q3"
+				, "no motor vehicles"
+				, "no pedestrians"
+				, "no parking"
+			);
 			createButton("Submit");
 			printPanels();
 			
