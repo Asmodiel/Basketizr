@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,12 +25,12 @@ public class MainClass extends JApplet implements ActionListener
 	JPanel bottomPanel;
 	List<JPanel>  panelList  = new ArrayList  <JPanel>  ();
 	
-	JButton mybutton;
-	JLabel mylabel;	
-
 	
-	JRadioButton radio1;
-	JRadioButton radio2;
+	JButton tempButton;
+	JPanel tempPanel;
+	
+	JRadioButton correctRadio;
+	JRadioButton wrongRadio;
 
 public void createTitle(String title)
 	{
@@ -71,11 +72,16 @@ public void createTitle(String title)
 	
 	public void createButton(String name)
 	{
-		JPanel tempPanel = new JPanel();
-		tempPanel.add( new JButton(name) );
+		tempPanel = new JPanel();
+		tempButton = new JButton(name);
+		
+		tempButton.addActionListener(this);
+		
+		tempPanel.add( tempButton );
 		
 		panelList.add( tempPanel );
 	}
+	
 	
 	public void printPanels()
 	{
@@ -134,7 +140,13 @@ public void createTitle(String title)
 		@Override
 		public void actionPerformed(ActionEvent event)
 		{
-			if (event.getSource() == mybutton && mylabel.getText() != "My button was clicked")
+			if( event.getSource() == tempButton )
+			{		
+				
+			}
+/*
+				if (event.getSource() == mybutton && mylabel.getText() != "My button was clicked")
+>>>>>>> Button action
 			{
 				mylabel.setText("My button was clicked");
 				mybutton.setText("Ok");
@@ -186,6 +198,7 @@ public void createTitle(String title)
 				mylabel.setText("My radio2button was clicked");
 				return;
 			}
+*/
 			
 		}
 
