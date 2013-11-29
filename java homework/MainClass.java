@@ -31,6 +31,7 @@ public class MainClass extends JApplet implements ActionListener
         JButton nextButton;
         JButton prevButton;
         JButton submitButton;
+        JButton quitButton;
         
         List<JPanel>  panelList  = new ArrayList  <JPanel>  ();
         
@@ -173,8 +174,10 @@ public void createTitle(String title)
 			}		
 			
 			prevButton = createButton("Previous");
+			prevButton.setVisible(false);
 			nextButton = createButton("Next");
 			submitButton = createButton("Submit");
+			quitButton = createButton("Quit");
 			printPanels();
 			
 			panelList.get(0).setVisible(true);
@@ -193,7 +196,9 @@ public void createTitle(String title)
 		public void actionPerformed(ActionEvent event)
 		{
 			if( event.getSource() == submitButton )
-            {        
+            {     
+				prevButton.setVisible(false);
+        		nextButton.setVisible(false);
 				score = 0;
 				
 				for ( int i = 0; i < PANELS; i++)
@@ -210,31 +215,50 @@ public void createTitle(String title)
 				}
 				
 				statusLabel.setText( "Your score is " + score + ", You " + alert + " the test!");
+				submitButton.setVisible( false );
+				Iterator < JPanel >    panelIT =  panelList.iterator();			
+		        while ( panelIT.hasNext() )
+		        {
+		        	JPanel  currPanel = panelIT.next();
+			        		currPanel.setVisible(false);
+		        }
 				
             }
             
             if( event.getSource() == nextButton )
             {
-                    panelList.get(currentPanelID % 3).setVisible(false);
-                    panelList.get(++currentPanelID % 3).setVisible(true);
+            	if ( currentPanelID == 2 )
+            	{
+            		prevButton.setVisible(false);
+            		nextButton.setVisible(false);
+            		return;
+            	}
+            		prevButton.setVisible(true);
+                    panelList.get(currentPanelID).setVisible(false);
+                    panelList.get(++currentPanelID).setVisible(true);
+            }
+            
+            if ( event.getSource() == quitButton )
+            {
+            	close();
             }
                     
             if( event.getSource() == prevButton )
             {
-                    if( currentPanelID < 3)
-                            currentPanelID += 3;
                     panelList.get(currentPanelID % 3).setVisible(false);
                     panelList.get(--currentPanelID % 3).setVisible(true);
+                    if ( currentPanelID == 0 )
+                    {
+                    	prevButton.setVisible(false);
+                    	return;
+                    }
             }
 		}
 			
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	void close () 
+	{
+		setVisible (false);	         
+		System.exit(0);
 	}
 
 }
