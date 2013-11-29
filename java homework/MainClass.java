@@ -54,7 +54,9 @@ public void createTitle(String title)
 	{
 		JPanel tempPanel = new JPanel();
 		tempPanel.setName( id );
-		//tempPanel.setBackground( Color.orange );
+	
+		ImageIcon img = createImageIcon("/images/img1.jpg");
+		tempPanel.add(new JLabel(img));
 	
 		tempPanel.add( new JLabel(question) );
 		for(int i=0;i<answers.length;i++)
@@ -93,6 +95,13 @@ public void createTitle(String title)
 		this.add( contentPanel );
 				
 	}
+	
+	protected static ImageIcon createImageIcon(String path)
+	{
+	    URL imgURL = MainClass.class.getResource(path);
+		
+		return new ImageIcon( imgURL );
+	}	
 	
 	public void init()
 	{
