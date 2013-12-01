@@ -1,6 +1,11 @@
+import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -35,25 +40,26 @@ public class MainClass extends JApplet implements ActionListener
         
         int currentPanelID = 0;
         
-        int score;
+        int score = 0;
         static final int PANELS = 3;                  
         int [] temp_correct = new int [PANELS];
         ButtonModel [] correct = new ButtonModel [PANELS];                  
         ButtonGroup [] allgroups = new ButtonGroup [PANELS];        
         
         JLabel statusLabel;
-        
-        JRadioButton correctRadio;
-        JRadioButton wrongRadio;
 
 		public void createTitle(String title)
 		{
 	        titlePanel = new JPanel();
-	        titlePanel.setName("title");
-	        titlePanel.setBackground( Color.orange );
-	        titlePanel.setPreferredSize( new Dimension( 500, 50 ) );
+	        JLabel jlabel = new JLabel(title);
 	        
-	        titlePanel.add( new JLabel(title), BorderLayout.PAGE_START );
+	        Font titleFont = new Font("Cambria",Font.BOLD,20);
+	        jlabel.setFont(titleFont);
+	        titlePanel.add(jlabel,BorderLayout.PAGE_START);
+
+	        titlePanel.setBackground( Color.LIGHT_GRAY );
+	        titlePanel.setPreferredSize( new Dimension( 490, 40 ) );
+	        //titlePanel.setLayout( new BoxLayout( titlePanel, BoxLayout.Y_AXIS ) );
 	        
 	         mainPanel.add( titlePanel );
 		}
@@ -62,7 +68,7 @@ public class MainClass extends JApplet implements ActionListener
 		{
 	        JPanel  tempPanel = new JPanel();
 	                tempPanel.setName( "" + id );
-	                tempPanel.setBackground( Color.green );
+	                tempPanel.setBackground( new Color(0x0080FF) );
 	                tempPanel.setAlignmentX( JPanel.CENTER_ALIGNMENT );
 	                                
 	        JLabel  tempLabel = new JLabel( createImageIcon("/images/img1.jpg") );
@@ -81,7 +87,6 @@ public class MainClass extends JApplet implements ActionListener
 	                        correct[ id ] = temp.getModel( );
 	                }
 	        }
-	        
 	        panelList.add( tempPanel );
 		}
 			
@@ -108,8 +113,7 @@ public class MainClass extends JApplet implements ActionListener
 		        		contentPanel.add ( currPanel );
 		    }
 			
-			this.add( contentPanel );
-					
+			this.add( contentPanel );	
 		}
 			
 		protected static ImageIcon createImageIcon( String path )
@@ -121,25 +125,24 @@ public class MainClass extends JApplet implements ActionListener
 		
 		public void init()
 		{
-			score = 0;
-			
-			
 			/* set up interface */
-			this.setSize( 500, 600 );
-			mainPanel = new JPanel( );
-				mainPanel.setSize( 500, 500 );
-				mainPanel.setBackground( Color.gray );		
-			
-			contentPanel = new JPanel();
-				contentPanel.setBackground( Color.WHITE );
+			this.setSize( 500, 400 );
+			mainPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)/*new BorderLayout()*/);
+				mainPanel.setSize( 500, 400 );
+				mainPanel.setBackground( Color.blue );
+				//mainPanel.setLayout(new GridLayout(3,1));
+				
+			contentPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+				contentPanel.setBackground( new Color(0x0080FF) );
 				contentPanel.setLayout( new BoxLayout( contentPanel, BoxLayout.Y_AXIS ) );
-				contentPanel.setPreferredSize( new Dimension( 500, 500 ) );
+				contentPanel.setPreferredSize( new Dimension( 490, 300 ) );
 			
 			bottomPanel = new JPanel();	
-				bottomPanel.setPreferredSize( new Dimension( 500, 50 ) );
+				bottomPanel.setPreferredSize( new Dimension( 490, 40 ) );
 				bottomPanel.setBackground( Color.lightGray );
+				//bottomPanel.setLayout( new BoxLayout( bottomPanel, BoxLayout.Y_AXIS ) );
 				
-			statusLabel = new JLabel(" status ");
+			statusLabel = new JLabel(" ");
 				bottomPanel.add( statusLabel );
 				
 			/* set up questions */
@@ -150,8 +153,8 @@ public class MainClass extends JApplet implements ActionListener
 				questions[2]="3. What is the meaning of this sign?";
 				
 				String[][] answers = new String [PANELS][3];
-				answers[0][0] = "if the vehicle ahead of you is turning left";
-				answers[0][1] = "if the vehicle ahead of you is turning right";
+				answers[0][0] = "if the shoulder is wide enough to accommodate your vehicle";
+				answers[0][1] = "if the vehicle ahead of you is turning left";
 				answers[0][2] = "under no circumstances";
 			
 				answers[1][0] = "give way";
@@ -214,10 +217,11 @@ public class MainClass extends JApplet implements ActionListener
 				Iterator < JPanel >    panelIT =  panelList.iterator();			
 		        while ( panelIT.hasNext() )
 		        {
-		        	JPanel  currPanel = panelIT.next();
-			        		currPanel.setVisible(false);
+		        	panelIT.next().setVisible(false);
 		        }
-				
+				//contentPanel.setPreferredSize( new Dimension( 490, 0 ) );
+		        contentPanel.setVisible(false);
+				this.setSize(500,95);
 		    }
 		    
 		    if( event.getSource() == nextButton )
